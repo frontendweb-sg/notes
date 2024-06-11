@@ -1,17 +1,28 @@
 #!/bin/bash
 
-echo "Hello world!"
+echo "Hello world";
 
-# System define variables
-echo $(env)
-echo "------"
-echo ${PATH}
-echo ${OSTYPE}
-echo ${HOSTNAME}
-echo ${USER}
+text="my name is my pradeep"
+: ${text:?"Error"}
+echo "I am there"
 
-ostype=${OSTYPE}
-echo "OSTYPE = ${ostype}"
 
-read -p "Enter name" name
-echo "name is ${name}"
+a=19
+b=8
+
+echo "$((a+b))" # plus
+echo "$((a-b))" # minus
+echo "$((a*b))" # mul
+echo "$((a^b))" # div
+echo "$((2**3))" # 2*2*2
+echo "$((++b))"  #9
+
+run(){
+    echo "This is my first function $1"
+    return 10
+}
+
+run pradeep
+
+value=$?
+echo "${value} return value"
