@@ -17,7 +17,8 @@ echo "$((a^b))" # div
 echo "$((2**3))" # 2*2*2
 echo "$((++b))"  #9
 
-run(){
+function run(){
+   local myname=Arun
     echo "This is my first function $1"
     return 10
 }
@@ -26,3 +27,4 @@ run pradeep
 
 value=$?
 echo "${value} return value"
+echo "${myname}"

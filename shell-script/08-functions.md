@@ -4,8 +4,8 @@
 
 ```sh
 
-# defination of function
-function_name(){
+# defination of function with or without function keyword
+function function_name(){
     # list of commands
 }
 
@@ -13,6 +13,8 @@ function_name(){
 # invocation
 function_name
 
+
+# ${FUNCNAME} is used to print function name
 ```
 
 `Example:`
@@ -63,4 +65,42 @@ run Pradeep Kumar
 value=$?
 
 echo "Run return value is $value"
+```
+
+**`Nested function:`**
+
+`Example:`
+
+```sh
+# Calling one function from another
+run () {
+   echo "Parent function"
+   nested
+}
+
+nested () {
+   echo "nested function invoking from paretn"
+}
+
+# Calling function one.
+run
+```
+
+**`Function local variable`**
+
+To declare `local` variable use `local` keyword
+
+`Example:`
+
+```sh
+function run(){
+    local myname=Arun  # local variable, only work inside the function
+    echo "This is my first function $1"
+    return 10
+}
+
+run pradeep
+
+echo "${myname}" # will not display
+
 ```
