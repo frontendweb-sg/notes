@@ -1,30 +1,31 @@
 #!/bin/bash
 
-echo "Hello world";
+echo "Hello World";
 
-text="my name is my pradeep"
-: ${text:?"Error"}
-echo "I am there"
+# name
+read -p "enter name " username;
 
+if [[ ${username,,} == "pradeep" ]]
+then
+    echo "Welcome back: ${username,,}"
+else
+    echo "No, match found"
+fi
 
-a=19
-b=8
-
-echo "$((a+b))" # plus
-echo "$((a-b))" # minus
-echo "$((a*b))" # mul
-echo "$((a^b))" # div
-echo "$((2**3))" # 2*2*2
-echo "$((++b))"  #9
-
-function run(){
-   local myname=Arun
-    echo "This is my first function $1"
-    return 10
-}
-
-run pradeep
-
-value=$?
-echo "${value} return value"
-echo "${myname}"
+case ${1} in
+    pradeep)
+        echo "Hello ${username}"
+        ;;
+    arun)
+        echo "Hello ${username}"
+        ;;
+    sanjeev)
+        echo "Hello ${username}"
+        ;;
+    dilip)
+        echo "Hello ${username}"
+        ;;
+    *)
+        echo "No match found ${username}"
+        ;;
+esac

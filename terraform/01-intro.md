@@ -30,3 +30,14 @@ The core terraform framework consists of three stages:
   On approval, Terraform performs the proposed operations in the correct order, respecting any resource dependencies.
 
 ![image-1](./image-1.avif)
+
+<br />
+
+**`Variables:`**
+
+`Syntax:`
+
+```terraform
+# declare variable
+variable variable_name {}
+```
