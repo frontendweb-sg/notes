@@ -25,7 +25,6 @@ class Dep {
     constructor() {
         this.subscribe = new Set()
     }
-
     track(key) {
 
     }
@@ -38,7 +37,6 @@ function reactive(target) {
         },
         set(target, key, newValue, receiver) {
             const result = Reflect.set(target, key, newValue, receiver)
-            console.log('result', result, JSON.stringify(result))
             getTotal()
         }
     })
