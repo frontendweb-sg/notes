@@ -33,5 +33,25 @@ echo ${name}
 # unset variable
 unset name;
 echo "${name}"
+```
 
+**`Debug mode:`**
+
+```sh
+bash -x file_name
+
+# or
+
+set -x # start debug mode from
+set +x # end debug mode to
+
+# example
+
+echo "Hi";
+name="pradeep"
+set -x
+echo "Enter name"
+var = ${1}
+echo "$var"
+set +x
 ```

@@ -118,3 +118,58 @@ done
 
 
 ```
+
+**`Select:`**
+
+`Syntax:`
+
+```sh
+PS3="put message here it will replce default message"
+select varName in list
+do
+    command1
+    command2
+    ....
+    ......
+    commandN
+done
+```
+
+`Example:`
+
+```sh
+# skill select
+PS3="Please select skill: "
+select option in html css js react
+do
+    echo "$option"
+done
+
+# exit select with case
+
+PS3="Please select skill: "
+select option in html css js react
+do
+    case ${option} in
+        html)
+            echo "You have selected ${option}"
+            break
+            ;;
+        css)
+            echo "You have selected ${option}"
+            break
+            ;;
+        js)
+            echo "You have selected ${option}"
+            break
+            ;;
+        react)
+            echo "You have selected ${option}"
+            break
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+```
