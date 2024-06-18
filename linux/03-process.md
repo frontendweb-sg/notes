@@ -91,3 +91,37 @@ sudo shutdown -c
 You can create scripts that run at `startup` and `shutdown` by placing them in the appropriate directories.
 
 `use:` /etc/rc.local (Make sure it’s executable)
+
+```sh
+sudo nano /etc/rc.local
+
+# add your command to the file
+```
+
+**`Edit cron jobs:`**
+
+```sh
+# edit root crontab
+sudo crontab -e
+
+# run at shutdown (using custom script to handle shutdown)
+@reboot /path/to/your/monitor_shutdown_script.sh
+
+
+# ancrontab format
+cat /etc/anacrontab
+```
+
+<br />
+
+**`Summary of Additional Advanced Tasks:`**
+
+```sh
+# system target
+systemctl get-default
+systemctl set-default
+systemctl isolate
+
+# crub customization (/etc/default/grub)
+sudo update-grub
+```
