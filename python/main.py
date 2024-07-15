@@ -1,22 +1,14 @@
-import math
+a = 10
+b = a  # 'b' now refers to the same object as 'a'
 
-class Circle:
-    __slots__ = ("r")
-    def __init__(self,r) -> None:
-        self.r=r;
+# Checking memory addresses
+print(id(a))  # Output: Memory address of object 'a'
+print(id(b))  # Output: Memory address of object 'b', should be the same as 'a'
 
-    @property
-    def radius(self):
-        return self.r;
+# Modifying 'a' does not change its memory address
+a: int = 20
+print(id(a))  # Output: Memory address of new object 'a'
 
-    @radius.setter
-    def radius(self,r):
-        if not isinstance(r, int| float) or r<=0:
-            raise TypeError("value type should be int")
-        self.r = r;
-
-c = Circle(5)
-c.radius=45
-c.s = 50;
-print(c.radius)
-print(c.__slots__)
+# 'b' still refers to the old object (integer '10')
+print(b)  # Output: 10
+print(id(b))  # Output: Memory address of object 'b', same as original 'a'
