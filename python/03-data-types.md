@@ -70,4 +70,4 @@ Variables can store data of different `types`, and different types can do differ
 
 **`None type:`**
 
-- `NoneType:` Represents the absence of a value, with a single value None
+- `NoneType:` Represents the absence of a value, with a single value None.
