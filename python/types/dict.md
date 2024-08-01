@@ -2,9 +2,9 @@
 
 In `Python`,
 
-a dictionary is a built-in data structure that is used to store collections of items, where each item is a key-value pair.
+A dictionary is a built-in data structure that is used to store collections of items, where each item is a key-value pair.
 
-Dictionaries are `unordered`, `mutable`, and `indexed`.
+A dictionary is a collection which is `ordered`\*, `changeable` and do `not allow duplicates`.
 
 They are defined by enclosing a comma-separated list of key-value pairs within curly braces `{}`, where each pair is separated by a colon `:`.
 
