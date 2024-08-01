@@ -98,6 +98,9 @@ print(x)  # Output: 1
 print(y)  # Output: 2
 print(z)  # Output: 3
 
+# using * asterik to collect remaining value in unpacking
+fruits = ("apple", "banana", "cherry", "strawberry", "raspberry")
+(green, yellow, *red) = fruits
 
 # This feature is widely used in functions that return multiple values:
 

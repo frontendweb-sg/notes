@@ -66,3 +66,74 @@ class Car:
         self.model = model
         self.year = year
 ```
+
+<br />
+
+**`Class method:`**
+
+- You can also add class methods to your custom Python classes.
+- A class method is a method that takes the class object as its first argument instead of taking `self`.
+- In this case, the argument should be called `cls`.
+
+You can create class methods using the `@classmethod` decorator.
+
+Providing your classes with `multiple constructors` is one of the most common use cases of class methods in `Python`.
+
+```py
+# point.py
+class ThreeDPoint:
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+
+    def __iter__(self):
+        yield from (self.x, self.y, self.z)
+
+    @classmethod
+    def from_sequence(cls, sequence):
+        return cls(*sequence)
+
+    def __repr__(self):
+        return f"{type(self).__name__}({self.x}, {self.y}, {self.z})"
+
+# instance of ThreeDots
+ThreeDPoint.from_sequence((4, 8, 16))
+```
+
+<br />
+
+**`Static method:`**
+
+- Your Python classes can also have static methods.
+- These methods don’t take the instance or the class as an argument.
+- So, they’re regular functions defined within a class.
+- You could’ve also defined them outside the class as stand-alone function.
+
+```py
+# point.py
+
+class ThreeDPoint:
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+
+    def __iter__(self):
+        yield from (self.x, self.y, self.z)
+
+    @classmethod
+    def from_sequence(cls, sequence):
+        return cls(*sequence)
+
+    @staticmethod
+    def show_intro_message(name):
+        print(f"Hey {name}! This is your 3D Point!")
+
+    def __repr__(self):
+        return f"{type(self).__name__}({self.x}, {self.y}, {self.z})"
+
+
+ThreeDPoint.show_intro_message("Pythonista")
+# Hey Pythonista! This is your 3D Point!
+```
