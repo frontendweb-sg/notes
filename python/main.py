@@ -1,40 +1,27 @@
 import threading
 
+import time
+import logging
 
-class ThreadLocalData:
-    def __init__(self):
-        self.local = threading.local()
-
-    def set_data(self, key, value):
-        setattr(self.local, key, value)
-
-    def get_data(self, key):
-        return getattr(self.local, key, None)
+logging.basicConfig(filename='app.log', level=logging.INFO)
 
 
-def thread_function(data_store, key, value):
-    data_store.set_data(key, value)
-    print(f"Thread {threading.current_thread().name} set {
-          key} to {data_store.get_data(key)}")
+def log_writer():
+    while True:
+        logging.info('Logging some info...')
+        time.sleep(10)
+
+    # Set up a daemon thread for logging
 
 
-def main():
-    data_store = ThreadLocalData()
+logging_thread = threading.Thread(target=log_writer)
+logging_thread.daemon = True
+logging_thread.start()
 
-    # Create multiple threads
-    thread1 = threading.Thread(target=thread_function, args=(
-        data_store, 'data', 'value1'), name='Thread-1')
-    thread2 = threading.Thread(target=thread_function, args=(
-        data_store, 'data', 'value2'), name='Thread-2')
+# Main application logic
 
-    # Start the threads
-    thread1.start()
-    thread2.start()
+for i in range(5):
+    print(f"Main thread iteration {i}")
+    time.sleep(2)
 
-    # Wait for threads to finish
-    thread1.join()
-    thread2.join()
-
-
-if __name__ == "__main__":
-    main()
+print("Main thread is finishing...")

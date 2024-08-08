@@ -180,6 +180,26 @@ print("Program finished")
 
 <br />
 
+**`Semaphores:`**
+
+A semaphore controls access to a common resource by maintaining a count. It allows a specific number of threads to access the resource concurrently.
+
+```py
+import threading
+
+semaphore = threading.Semaphore(2)  # Allow up to 2 threads to access
+
+def critical_section():
+    with semaphore:
+        # Critical section code here
+        pass  # Replace with your code
+
+# Example usage
+
+```
+
+<br />
+
 **`Communication between threads:`**
 
 Threads often need to communicate or share results.
@@ -387,3 +407,95 @@ if __name__ == "__main__":
 - `Immutable Data:` Use immutable data structures (e.g., tuples) where possible to avoid unintended modifications.
 
 - `Thread-Local Storage:` For data that should be unique to each thread, use threading.local().
+
+## Daemon Threads
+
+In Python,
+
+A `Daemon` thread is a special type of thread that run in the background and is designed to exit autometically when all non-daemon threads in the program have finished executing.
+
+Daemon threads are used for tasks that are meant to run `continuously` or for the duration of the `program` but should not prevent the `program` from `exiting` if they are still running.
+
+**`Key Characteristics of Daemon Threads:`**
+
+- `Background Execution:` Daemon threads are often used for background tasks, such as logging or monitoring, where the task should not block the program from exiting.
+
+- `Automatic Termination:` When the main thread (or any non-daemon threads) exits, all daemon threads are terminated automatically, regardless of whether they have completed their tasks. This means that daemon threads are not given a chance to clean up or finish their work gracefully if the program is terminating.
+
+- `Set Daemon Status:` To make a thread a daemon, you set its `daemon` attribute to `True` before starting the thread. This can be done with the `threading.Thread` class.
+
+`Example:`
+
+```py
+import threading
+import time
+
+def background_task():
+    while True:
+        print("Daemon thread is running...")
+        time.sleep(1)
+
+# Create a daemon thread
+daemon_thread = threading.Thread(target=background_task)
+daemon_thread.daemon = True  # Set the thread as a daemon thread
+
+# Start the daemon thread
+daemon_thread.start()
+
+# Main thread work
+for i in range(5):
+    print(f"Main thread is running {i}")
+    time.sleep(1)
+
+print("Main thread is finishing...")
+```
+
+**`Consideration:`**
+
+- `Resource Management:`
+
+  Since daemon threads are terminated abruptly, they should not be used for tasks that require clean-up or finalization
+
+- `Blocking the Program:`
+
+  While daemon threads will not block the program from exiting, they should be designed to handle such abrupt termination gracefully
+
+**`Use cases:`**
+
+- `Logging and Monitoring Services:`
+
+  Daemon threads can be used for logging or monitoring services that need to run continuously while the main application performs its tasks.
+
+  `For instance`, you might have a background thread that periodically writes logs to a file or monitors system health.
+
+  ```py
+      import threading
+  ```
+
+import time
+import logging
+
+logging.basicConfig(filename='app.log', level=logging.INFO)
+
+def log_writer():
+while True:
+logging.info('Logging some info...')
+time.sleep(10)
+
+    # Set up a daemon thread for logging
+
+logging_thread = threading.Thread(target=log_writer)
+logging_thread.daemon = True
+logging_thread.start()
+
+# Main application logic
+
+for i in range(5):
+print(f"Main thread iteration {i}")
+time.sleep(2)
+
+print("Main thread is finishing...")
+
+```
+
+```
