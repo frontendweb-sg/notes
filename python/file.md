@@ -1,6 +1,7 @@
-Hello Pradeep
-Hello Arun
-Hello Dilip
-Hello Sanjeev
-Hello Reyansh
-Hello Ayansh
+# File handling in python
+
+**`Operations:`**
+
+- Creat file
+- Read file
+- Write to files
