@@ -1,11 +1,15 @@
 # What are threads
 
-CPythong implementation details:
-
-In CPythong:
+CPythong implementation details: In CPython
 
 Due to `Global interpreter Lock`, only on thread can execute python code at once.
-I you want your application to make better use of the comp`utational resources of `multi-core`machines, you are advised to use`multiprocessing`or`concurrent.futures.ProcessPoolExecutor`.
+
+I you want your application to make better use of the `computational resources of multi-core` machines, you are advised to use
+
+- `multiprocessing`.
+- `concurrent.futures.ProcessPoolExecutor`.
+
+<br />
 
 `Thread:`
 
@@ -30,8 +34,6 @@ There are two ways to create thread.
 
 - `Thread:` Using direct `Thread` classs.
 - `Thread:` Using subclassing with `Thread` class.
-
-<br />
 
 `Example:` Direct by using `Thread` class to create thread object.
 
@@ -63,7 +65,6 @@ thread2.join()
 `Note:`
 
 - `Thread:` This creates a new thread. You pass a function (target) that the thread will execute.
-
 - `start():` This begins the execution of the thread. It runs the function in a separate thread.
 - `join():` This waits for the thread to finish its job before moving on. It's like making sure your cake is done baking before you open the oven door.
 
@@ -103,9 +104,17 @@ print("All threads have finished executing.")
 
 `Explanation:`
 
-- `Subclass threading.Thread:` Create a new class (`MyThread`) that inherits from `threading.Thread`.
-- `Override the run() Method:` Implement the `run()` method, which contains the code that will be executed in the thread. This method is automatically called when `start()` is invoked on the thread object.
-- `Initialize Your Thread:` In the \_\_init\_\_() method, call super(). \_\_init\_\_() to ensure the base class is properly initialized. You can also pass additional parameters to your thread class and use them in run().
+- `Subclass threading.Thread:`
+
+  Create a new class (`MyThread`) that inherits from `threading.Thread`.
+
+- `Override the run() Method:`
+
+  Implement the `run()` method, which contains the code that will be executed in the thread. This method is automatically called when `start()` is invoked on the thread object.
+
+- `Initialize Your Thread:`
+
+  In the \_\_init\_\_() method, call super(). \_\_init\_\_() to ensure the base class is properly initialized. You can also pass additional parameters to your thread class and use them in run().
 
 <br />
 
@@ -267,11 +276,24 @@ print(f"Final counter value: {counter}")
 
 <br />
 
-**`Using Conditions for Coordination:`**
+**`Synchronization with Conditions:`**
 
 Conditions are used when threads need to wait for certain conditions to be met before proceeding.
 
 This is useful for complex synchronization scenarios where you need to coordinate multiple threads.
+
+`threading.Condition` class used for it.
+
+`Condition Variables:`
+
+- `Wait:` Threads can wait for a condition to be met before processing.
+- `Notify:` A thread can notify other waiting thread that the condition has been met.
+
+`Key methods:`
+
+- `wait:` Blocks the calling thread until the condition is notified or the optional timeout occurs
+- `notify(n=1):` Wakes up at least one of the threads waiting for the condition.
+- `notify_all():` Wakes up all threads waiting for the condition.
 
 `Example:` Producer-Consumer with Condition
 
@@ -336,9 +358,43 @@ print("Program finished")
 
 ```
 
+`Explanation:`
+
+- `Shared Resource:` The buffer list acts as the shared resource that both `producer` and `consumer` threads interact with.
+  The `buffer_size` controls how many items the `buffer` can hold.
+
+- `Condition Variable:` The condition object is created to manage synchronization. It uses a lock internally to ensure that only one thread can modify the shared resource at a time.
+
+- `Producer Thread:`
+
+  - ` Acquire Lock:` Uses with condition to acquire the lock associated with the condition variable.
+
+  - `Check Buffer:` If the buffer is full, the producer waits for the condition to be notified (i.e., when the consumer consumes an item).
+
+  - `Produce Item:` Adds an item to the buffer.
+
+  - `Notify Consumer:` Calls condition.notify() to signal the consumer that an item has been produced and there’s now something to consume.
+
+- `Consumer Thread:`
+
+  - `Acquire Lock:` Uses with condition to acquire the lock associated with the condition variable.
+  - `Check Buffer:` If the buffer is empty, the consumer waits for the condition to be notified (i.e., when the producer produces an item).
+  - `Consume Item:` Removes an item from the buffer.
+  - `Notify Producer:` Calls condition.notify() to signal the producer that space is now available in the buffer.
+
+`Use Cases:`
+
+- `Producer-Consumer Problems:` Synchronization conditions are often used in producer-consumer scenarios where threads need to wait for resources to become available or to notify others when resources are freed.
+
+- `Task Coordination:` When multiple threads need to coordinate their progress, such as waiting for all threads to complete certain steps before moving to the next stage.
+
+- `Resource Management:` Managing access to limited resources where threads must wait until resources become available or are released.
+
+- `Event-Driven Systems:` Systems where threads must wait for specific events or conditions to be met before proceeding.
+
 <br />
 
-**`Semaphores:`**
+**`Syncronization with Semaphores:`**
 
 A semaphore controls access to a common resource by maintaining a count. It allows a specific number of threads to access the resource concurrently.
 
