@@ -1,17 +1,43 @@
 # What are threads
 
-In computing, `threading` allows a program to run multiple tasks (or `threads`) at the same time.
+CPythong implementation details:
 
-Each thread is like a small job that the computer can do simultaneously with other threads.
+In CPythong:
+
+Due to `Global interpreter Lock`, only on thread can execute python code at once.
+I you want your application to make better use of the comp`utational resources of `multi-core`machines, you are advised to use`multiprocessing`or`concurrent.futures.ProcessPoolExecutor`.
+
+`Thread:`
+
+A thread is a lightweight, smaller unit of a process that can run concurrently with other threads.
+Threads within the same process share the same memory space, which allows them to communicate with each other more easily compared to processes.
+
+This can be useful for performing tasks in parallel.
+
+such as handling multiple requests or performing time-consuming operations without freezing the main program.
+
+`Thread Safety:`
+
+Always ensure that shared resources are accessed in a thread-safe manner using synchronization mechanisms.
+
+<br />
 
 **`Creating thread in python:`**
 
 Use `threading` module for python3 or `_thread` for using old module
 
+There are two ways to create thread.
+
+- `Thread:` Using direct `Thread` classs.
+- `Thread:` Using subclassing with `Thread` class.
+
+<br />
+
+`Example:` Direct by using `Thread` class to create thread object.
+
 ```py
 from threading import Thread,active_count
 import time
-
 
 def display():
     print("Hello World: start")
@@ -40,6 +66,136 @@ thread2.join()
 
 - `start():` This begins the execution of the thread. It runs the function in a separate thread.
 - `join():` This waits for the thread to finish its job before moving on. It's like making sure your cake is done baking before you open the oven door.
+
+<br />
+
+`Example:` Using subclass
+
+```py
+from threading import Thread,active_count
+import time
+
+class MyThread(Thread):
+    def __init__(self, name, delay):
+        super().__init__(self)  # Initialize the base class
+        self.name = name
+        self.delay = delay
+
+    def run(self):
+        for i in range(5):
+            print(f"{self.name}: {i}")
+            time.sleep(self.delay)
+
+# Step 3: Create instances of your thread class
+thread1 = MyThread(name="Thread-1", delay=1)
+thread2 = MyThread(name="Thread-2", delay=2)
+
+# Start the threads
+thread1.start()
+thread2.start()
+
+# Wait for the threads to finish
+thread1.join()
+thread2.join()
+
+print("All threads have finished executing.")
+```
+
+`Explanation:`
+
+- `Subclass threading.Thread:` Create a new class (`MyThread`) that inherits from `threading.Thread`.
+- `Override the run() Method:` Implement the `run()` method, which contains the code that will be executed in the thread. This method is automatically called when `start()` is invoked on the thread object.
+- `Initialize Your Thread:` In the \_\_init\_\_() method, call super(). \_\_init\_\_() to ensure the base class is properly initialized. You can also pass additional parameters to your thread class and use them in run().
+
+<br />
+
+**`Thread lifecyle:`**
+
+Thread lifecyle involde in many stages from `creation` to `termination`.
+
+`Stages:`
+
+1. `New ----> Runnable:` Occurs when `start()` is called.
+2. `Runnable ----> Running:` The thread schedular picks the thread to run.
+3. `Running ----> Blocked/Waiting/Timed Waiting:` Happens when the thread is waiting for resource, condition, or time
+4. `Blocked/Waiting/Timed waiting ----> Runnable:` When the condition changes or the timeout expires, the thread becomes runnable again.
+5. `Running ----> Terminated:` When the run() method finishes execution.
+
+<br />
+
+1.  `Creation (or initial) State:`
+
+    A thread is created when you instantiate a `Thread` class (or subclass it).
+    At this point the thread is in `new` or `initial` state.
+
+    `Example:`
+
+    ```py
+        from threading import Thread
+
+        def thread_function():
+            print("Thread created")
+
+        t1 = Thread(target=thread_func) # new state
+
+        # Thread not started yet
+    ```
+
+2.  `Runnable (or Ready) State:`
+
+    When you call the `start()` method on a `Thread` object. the thread transitions from the `new` state to `runnable` state.
+
+    In this state thread is ready to run but is not yet executing.
+
+    `Example:`
+
+    ```py
+    t1.start()
+    ```
+
+3.  `Running State:`
+
+    `Execution:` During this state, the thread is actively executing its `run()` method. The actual execution of the thread can be paused or preempted by the operating system's thread scheduler.
+
+4.  `Blocked (or Waiting) State:`
+
+    A thread can enter the "Blocked" state if it is waiting for some resource or condition. For example, a thread might block while waiting for I/O operations to complete or while acquiring a lock.
+
+    `Example:`
+
+    ```py
+    import threading
+
+     lock = threading.Lock()
+
+     def thread_function():
+         with lock:  # Thread might block here if the lock is held by another thread
+             pass
+
+    ```
+
+5.  `Timed Waiting:`
+
+    Waiting for a Timeout: A thread can enter a "Timed Waiting" state if it is waiting for a specific amount of time.
+
+    `Example:`
+
+    ```py
+    import time
+
+    def thread_function():
+        time.sleep(5)  # Timed Waiting state for 5 seconds
+    ```
+
+6.  `Terminated (or Dead) State:`
+
+        `Completion:` Once the `run()` method completes its execution, the thread moves to the `"Terminated"` or `"Dead"` state. At this point, the thread has finished executing and cannot be restarted. Resources allocated to the thread are cleaned up.
+
+    `Example:`
+
+    ```py
+    my_thread.join()  # Wait for the thread to finish (transition to Terminated state)
+    ```
 
 <br />
 
@@ -114,6 +270,8 @@ print(f"Final counter value: {counter}")
 **`Using Conditions for Coordination:`**
 
 Conditions are used when threads need to wait for certain conditions to be met before proceeding.
+
+This is useful for complex synchronization scenarios where you need to coordinate multiple threads.
 
 `Example:` Producer-Consumer with Condition
 
