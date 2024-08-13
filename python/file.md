@@ -1,7 +1,1 @@
-# File handling in python
-
-**`Operations:`**
-
-- Creat file
-- Read file
-- Write to files
+HHHHHello world, i am appendingHello world, i am appendingHello world, i am appendingHello world, i am appending
