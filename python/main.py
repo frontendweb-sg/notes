@@ -1,5 +1,15 @@
-def fact(A, n=0):
-    return A[0] + fact(A, n+1) if n != len(A) else A[0]
+class Descriptor:
+    def __init__(self, value: int) -> None:
+        self.value = value
+
+    def __get__(self, instance, owner):
+        print("Getting value", instance, owner)
+        return self.value
 
 
-print(fact([1, 2, 3, 4, 5, 6]))
+class Use:
+    attr = Descriptor(10)
+
+
+attr = Descriptor(10)
+print(attr.value)
