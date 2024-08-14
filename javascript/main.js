@@ -1,0 +1,1 @@
+console.log('enter your name',process.stdin)
