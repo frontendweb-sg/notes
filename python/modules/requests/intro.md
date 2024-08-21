@@ -127,3 +127,41 @@ def save_image():
 
 save_image()
 ```
+
+**`Handle exception:`**
+
+```py
+import requests
+
+res = requests.get("https://httpbisn.org/status/501")
+
+try:
+    res.raise_for_status()
+except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
+    print("ERROR!",e)
+
+print(res)
+
+# timeout error
+res = requests.get("https://httpbisn.org/status/501",timeout=0.5)
+
+try:
+    res.raise_for_status()
+except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError,requests.exceptions.ConnectTimeout) as e:
+    print("ERROR!",e)
+```
+
+**`Authentication:`**
+
+```py
+def basic_auth():
+    from requests.auth import HTTPBasicAuth
+    try:
+        res = requests.get("https://httpbin.org/basic-auth/user/passwd",
+                           auth=HTTPBasicAuth('user', 'passwd'))
+        print(res.status_code)
+    except requests.exceptions.HTTPError as e:
+        print("ERROR!", e)
+
+basic_auth()
+```

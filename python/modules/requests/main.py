@@ -72,4 +72,32 @@ def save_image():
             f.write(chunk)
 
 
-save_image()
+def exception_handle():
+    res = requests.get("https://httpbin.org/status/501")
+    try:
+        res.raise_for_status()
+    except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError) as e:
+        print("ERROR!", e)
+    print(res)
+
+
+def timeout_error():
+    res = requests.get("https://httpbin.org/status/501", timeout=0.5)
+    try:
+        res.raise_for_status()
+    except requests.exceptions.ConnectTimeout as e:
+        print("ERROR!", e)
+    print(res)
+
+
+def basic_auth():
+    from requests.auth import HTTPBasicAuth
+    try:
+        res = requests.get("https://httpbin.org/basic-auth/user/passwd",
+                           auth=HTTPBasicAuth('user', 'passwd'))
+        print(res.status_code)
+    except requests.exceptions.HTTPError as e:
+        print("ERROR!", e)
+
+
+basic_auth()
