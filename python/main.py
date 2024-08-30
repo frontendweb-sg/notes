@@ -1,16 +1,22 @@
-str1 = "python"
-str2 = "is"
-str3 = "AWESOME"
+class User:
+    def __init__(self, name: str) -> None:
+        self._name = name
 
-# Write your code below:
-str4 = str1.title() + " "+str2.lower()+" "+str3.lower()
-print(str4[::2])
+    name = property(lambda self: self._name)
+    other = name
+
+    @classmethod
+    def set_name(self, value: str):
+        if len(value) <= 0:
+            raise ValueError("value must be greater then 0")
+        if self._name in self.__dict__:
+            self._name = value
+    # name = other.setter(set_name)
 
 
-def loop(n):
-    count = 0
-    count = count + 1, print(count) if count != n else n
-    return loop(n)
+u1 = User('pl')
 
+print(u1.name)
 
-loop(10)
+print(u1.set_name("HP"))
+print(u1.name, u1.__dict__, User.__dict__, User._name)
