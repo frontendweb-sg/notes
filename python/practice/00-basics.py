@@ -13,11 +13,13 @@ print(np.show_config())
 print("========== SHOW RUNTIME ==========")
 print(np.show_runtime())
 
-
 # write a program to get help with the add function
 # use 'np.info(func)' to get help of function
 # print(np.info(np.add))
 
-
 # numpy built-ins
 # print(np.__builtins__)
+
+# write a program to test whether none of the elements of a given array are zero
+a = np.array([1, 2, 3, 4])
+print(np.all(a), np.nan, np.inf)
