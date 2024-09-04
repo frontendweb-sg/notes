@@ -22,4 +22,14 @@ print(np.show_runtime())
 
 # write a program to test whether none of the elements of a given array are zero
 a = np.array([1, 2, 3, 4])
-print(np.all(a), np.nan, np.inf)
+print(np.all(a))
+
+# Write a  NumPy program to test a given array element-wise for finiteness(not infinity or not a number).
+a = np.array([1, 0, np.nan, np.inf])
+print(np.isfinite(a))
+
+# Write a  NumPy program to test elements-wise for positive or negative infinity.
+a = np.array([1, -2, np.inf, -np.inf, 0, 3.5])
+print(np.isposinf(a))
+print(np.isneginf(a))
+print(np.isnan(a))  # check is nan value in given array
