@@ -1,5 +1,6 @@
 import socket
 import requests
+import json
 
 
 def fetch_data(id: int) -> dict:
@@ -40,7 +41,7 @@ def server():
 
         # send message to client
         post = fetch_data(id)
-        client_socket.send(str(post).encode())
+        client_socket.send(json.dump(post))
 
 
 if __name__ == "__main__":
