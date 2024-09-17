@@ -1,10 +1,6 @@
-import numpy as np
-import pandas as pd
+f = open("csv/employees.csv", "r")
 
-
-a = np.array([1, 2])
-
-
-b = pd.Series(a)
-
-print(b.shape)
+for l in f.readline():
+    print(l)
+# line = f.readline()
+f.close()
