@@ -1,6 +1,7 @@
-f = open("csv/employees.csv", "r")
+import pandas as pd
+import numpy as np
 
-for l in f.readline():
-    print(l)
-# line = f.readline()
-f.close()
+a = list((1, 2, 3, 4, 5))
+i = list("abcde")
+s = pd.Series(a, index=i)
+print(s)
